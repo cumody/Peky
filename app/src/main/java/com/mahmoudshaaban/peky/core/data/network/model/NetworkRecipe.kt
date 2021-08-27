@@ -84,3 +84,4 @@ fun NetworkRecipe.asDomainModel(): Recipe {
 fun NetworkStep.asDomainModel() = Instruction(number, step)
 
 fun NetworkIngredient.asDomainModel() = Ingredient(id, name, original, amount, unit)
+

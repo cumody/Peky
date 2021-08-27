@@ -22,6 +22,7 @@ import com.mahmoudshaaban.peky.core.presentation.dispatchers.RecipeEventDispatch
 import com.mahmoudshaaban.peky.core.util.applyTopWindowInsets
 import com.mahmoudshaaban.peky.core.util.bindNetworkImage
 import com.mahmoudshaaban.peky.core.util.configureStatusBar
+import com.mahmoudshaaban.peky.core.util.navigateToRecipeDetail
 import com.mahmoudshaaban.peky.databinding.FragmentCategoriesDetailsBinding
 import com.mahmoudshaaban.peky.features.categories.presentation.viewmodel.CategoriesDetailsViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -121,7 +122,7 @@ class CategoriesDetailsFragment : Fragment() , RecipeEventDispatcher {
     }
 
     override fun onRecipePressed(recipe: Recipe, view: View) {
-
+        navigateToRecipeDetail(recipe , view)
     }
 
 }

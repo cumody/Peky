@@ -8,6 +8,7 @@ object K {
     const val RECIPE_INFO_PATH = "/recipes/{id}/information?includeNutrition=false"
     const val ONBOARDING_DID_SHOW_KEY = "ONBOARDING_DID_SHOW_KEY"
     const val RECIPES_PER_PAGE = 10
+    const val DATABASE_NAME = "peky_db"
 
 
 }
