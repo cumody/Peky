@@ -27,3 +27,12 @@ All recipe information is provided by [Spoonacular API.](https://spoonacular.com
 - Glide
 - DataStore
 - Paging 3
+## Screenshots
+| ![Categories](assets/screenshot_1.jpg) | ![Recipes](assets/screenshot_2.jpg) |
+|----------|:-------------:|
+
+| ![Favorites](assets/screenshot_3.jpg) | ![Instructions](assets/screenshot_4.jpg) |
+|----------|:-------------:|
+
+| ![Favorites](assets/screenshot_5.jpg) | ![Instructions](assets/screenshot_6.jpg) |
+|----------|:-------------:|
