@@ -11,17 +11,22 @@ def localProperties = new Properties()
 localProperties.load(new FileInputStream(rootProject.file("local.properties")))
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 29
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.mahmoudshaaban.peky"
         minSdkVersion 23
-        targetSdkVersion 31
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "API_KEY", localProperties['apiKey']
+    }
+
+    buildFeatures {
+        viewBinding true
+        dataBinding true
     }
 
     buildTypes {
