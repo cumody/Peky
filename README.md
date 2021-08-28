@@ -1,4 +1,4 @@
-# Roka Recipes App
+# Peky Recipes App
 Personal project developed with the Android SDK.
 
 All recipe information is provided by [Spoonacular API.](https://spoonacular.com/food-api) 
