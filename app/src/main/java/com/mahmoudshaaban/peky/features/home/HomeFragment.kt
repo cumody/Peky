@@ -31,7 +31,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home , container , false)
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,7 +59,9 @@ class HomeFragment : Fragment() {
     private fun setupBottomNavigation() {
         val activity = requireActivity()
         val navGraphIds = listOf(
-            R.navigation.categories_graph
+            R.navigation.categories_graph,
+            R.navigation.search_graph,
+            R.navigation.favourites_graph
         )
         bottomNav.setupWithNavController(
             navGraphIds,
