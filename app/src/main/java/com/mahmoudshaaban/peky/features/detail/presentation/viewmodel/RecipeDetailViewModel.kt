@@ -7,6 +7,7 @@ import com.mahmoudshaaban.peky.core.domain.repository.RecipeRepository
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
+
 class RecipeDetailViewModel @ViewModelInject constructor(
     private val repository: RecipeRepository
 ) : ViewModel() {

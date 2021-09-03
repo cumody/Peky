@@ -1,9 +1,9 @@
 package com.mahmoudshaaban.peky.di
 
 import android.content.Context
-import com.fabirt.roka.core.data.network.client.RecipesApiClient
-import com.fabirt.roka.core.data.network.services.RecipeService
 import com.mahmoudshaaban.peky.core.data.database.AppDatabase
+import com.mahmoudshaaban.peky.core.data.network.client.RecipesApiClient
+import com.mahmoudshaaban.peky.core.data.network.services.RecipeService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

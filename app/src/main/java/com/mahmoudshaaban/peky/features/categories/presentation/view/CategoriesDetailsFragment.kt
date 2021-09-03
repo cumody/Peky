@@ -29,45 +29,28 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
-class CategoriesDetailsFragment : Fragment() , RecipeEventDispatcher {
+class CategoriesDetailsFragment : Fragment(), RecipeEventDispatcher {
     private val viewModel: CategoriesDetailsViewModel by activityViewModels()
     private val args: CategoriesDetailsFragmentArgs by navArgs()
-
     private lateinit var adapter: RecipePagingAdapter
 
     private var _binding: FragmentCategoriesDetailsBinding? = null
     private val binding get() = _binding!!
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         adapter = RecipePagingAdapter(this)
         viewModel.requestRecipesForCategory(args.category)
         configureTransitions()
-
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         configureStatusBar(false)
         _binding = FragmentCategoriesDetailsBinding.inflate(inflater, container, false)
-        return binding.root    }
-
-
-    private fun configureTransitions() {
-        val duration = resources.getInteger(R.integer.page_transition_duration)
-        val color = requireContext().getColor(R.color.colorBackground)
-        val transition = MaterialContainerTransform().apply {
-            this.duration = duration.toLong()
-            containerColor = color
-            drawingViewId = R.id.homeNavHostContainer
-        }
-        sharedElementEnterTransition = transition
-        sharedElementReturnTransition = transition
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -78,32 +61,33 @@ class CategoriesDetailsFragment : Fragment() , RecipeEventDispatcher {
         binding.btnBack.applyTopWindowInsets()
 
         binding.rvRecipes.layoutManager = LinearLayoutManager(requireContext())
-       binding.rvRecipes.adapter = adapter.withLoadStateFooter(PagingLoadStateAdapter())
+        binding.rvRecipes.adapter = adapter.withLoadStateFooter(PagingLoadStateAdapter())
 
         binding.tvTitle.text = args.category.name
         bindNetworkImage(binding.ivCategoryItem, args.category.imageUrl)
-
-        binding.errorLayout.btnRetry.setOnClickListener {
-            adapter.refresh()
-        }
 
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
 
+        binding.errorLayout.btnRetry.setOnClickListener {
+            adapter.refresh()
+        }
 
         setupObservers()
-
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
+    override fun onRecipePressed(recipe: Recipe, view: View) {
+        navigateToRecipeDetail(recipe, view)
+    }
+
     private fun setupObservers() {
-        adapter.addLoadStateListener { loadStates ->
+        adapter.addLoadStateListener {  loadStates ->
             val loadState = loadStates.source.refresh
             binding.progressLayout.spinView.isVisible = loadState is LoadState.Loading
             binding.rvRecipes.isVisible = loadState is LoadState.NotLoading && adapter.itemCount > 0
@@ -121,8 +105,15 @@ class CategoriesDetailsFragment : Fragment() , RecipeEventDispatcher {
         }
     }
 
-    override fun onRecipePressed(recipe: Recipe, view: View) {
-        navigateToRecipeDetail(recipe , view)
+    private fun configureTransitions() {
+        val duration = resources.getInteger(R.integer.page_transition_duration)
+        val color = requireContext().getColor(R.color.colorBackground)
+        val transition = MaterialContainerTransform().apply {
+            this.duration = duration.toLong()
+            containerColor = color
+            drawingViewId = R.id.homeNavHostContainer
+        }
+        sharedElementEnterTransition = transition
+        sharedElementReturnTransition = transition
     }
-
 }

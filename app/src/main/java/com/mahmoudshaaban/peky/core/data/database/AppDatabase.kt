@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.fabirt.roka.core.data.database.entities.DatabaseIngredient
-import com.fabirt.roka.core.data.database.entities.DatabaseInstruction
 import com.mahmoudshaaban.peky.core.constants.K
 import com.mahmoudshaaban.peky.core.data.database.dao.RecipeDao
+import com.mahmoudshaaban.peky.core.data.database.entity.DatabaseIngredient
+import com.mahmoudshaaban.peky.core.data.database.entity.DatabaseInstruction
 import com.mahmoudshaaban.peky.core.data.database.entity.DatabaseRecipe
 
 @Database(

@@ -4,8 +4,10 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
+import androidx.navigation.NavGraphNavigator
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
+import com.mahmoudshaaban.peky.MainGraphDirections
 import com.mahmoudshaaban.peky.R
 import com.mahmoudshaaban.peky.core.domain.model.Recipe
 import com.mahmoudshaaban.peky.features.detail.presentation.viewmodel.RecipeDetailViewModel
@@ -29,6 +31,6 @@ fun Fragment.navigateToRecipeDetail(
     } else {
         viewModel.requestRecipeInfo(recipe)
     }
-   // val action = N.actionGlobalRecipeDetailFragment(recipe.id.toString(), null)
-   // findMainNavController().navigate(action, extras)
+    val action = MainGraphDirections.actionGlobalRecipeDetailFragment(recipe.id.toString(), null)
+     findMainNavController().navigate(action, extras)
 }

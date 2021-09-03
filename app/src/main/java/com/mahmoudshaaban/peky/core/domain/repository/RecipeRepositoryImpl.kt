@@ -1,16 +1,14 @@
-package com.fabirt.roka.core.domain.repository
+package com.mahmoudshaaban.peky.core.domain.repository
 
-import com.fabirt.roka.core.data.database.entities.DatabaseIngredient
-import com.fabirt.roka.core.data.database.entities.DatabaseInstruction
-import com.fabirt.roka.core.data.network.model.*
-import com.fabirt.roka.core.data.network.services.RecipeService
 import com.mahmoudshaaban.peky.core.data.database.dao.RecipeDao
+import com.mahmoudshaaban.peky.core.data.database.entity.DatabaseIngredient
+import com.mahmoudshaaban.peky.core.data.database.entity.DatabaseInstruction
 import com.mahmoudshaaban.peky.core.data.database.entity.DatabaseRecipe
 import com.mahmoudshaaban.peky.core.data.database.entity.asDomainModel
 import com.mahmoudshaaban.peky.core.data.network.model.asDomainModel
+import com.mahmoudshaaban.peky.core.data.network.services.RecipeService
 import com.mahmoudshaaban.peky.core.domain.model.Recipe
 import com.mahmoudshaaban.peky.core.domain.model.toDatabaseModel
-import com.mahmoudshaaban.peky.core.domain.repository.RecipeRepository
 import com.mahmoudshaaban.peky.core.error.Failure
 import com.mahmoudshaaban.peky.core.error.toFailure
 import com.mahmoudshaaban.peky.core.util.Either

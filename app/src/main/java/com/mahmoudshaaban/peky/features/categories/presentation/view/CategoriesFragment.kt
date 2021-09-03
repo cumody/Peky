@@ -20,21 +20,19 @@ import com.mahmoudshaaban.peky.features.categories.presentation.dispatchers.Cate
 import com.mahmoudshaaban.peky.features.categories.presentation.viewmodel.CategoriesViewModel
 
 
-class CategoriesFragment : Fragment() , CategoryEventDispatcher {
+class CategoriesFragment : Fragment(), CategoryEventDispatcher {
 
-    private val viewModel :CategoriesViewModel by viewModels()
-    private lateinit var adatper : CategoriesAdapter
+    private val viewModel: CategoriesViewModel by viewModels()
 
-    private var _binding : FragmentCategoriesBinding? = null
+    private lateinit var adapter: CategoriesAdapter
+
+    private var _binding: FragmentCategoriesBinding? = null
     private val binding get() = _binding!!
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adatper = CategoriesAdapter(this)
+        adapter = CategoriesAdapter(this)
         exitTransition = Hold()
-
     }
 
     override fun onCreateView(
@@ -42,27 +40,23 @@ class CategoriesFragment : Fragment() , CategoryEventDispatcher {
         savedInstanceState: Bundle?
     ): View? {
         configureStatusBar()
-        _binding = FragmentCategoriesBinding.inflate(inflater,container,false)
+        _binding = FragmentCategoriesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Prepare reenter transsition
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
 
-
         binding.rvCategories.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvCategories.adapter = adatper
-
+        binding.rvCategories.adapter = adapter
 
         viewModel.categories.observe(viewLifecycleOwner, Observer { categories ->
             binding.rvCategories.scheduleLayoutAnimation()
-            adatper.submitList(categories)
+            adapter.submitList(categories)
         })
-
-
-
     }
 
     override fun onDestroyView() {
@@ -77,4 +71,4 @@ class CategoriesFragment : Fragment() , CategoryEventDispatcher {
             .actionCategoriesFragmentToCategoriesDetailsFragment(category)
         findNavController().navigate(action, extras)
     }
-    }
+}

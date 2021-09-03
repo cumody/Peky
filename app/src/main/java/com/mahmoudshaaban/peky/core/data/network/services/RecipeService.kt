@@ -1,8 +1,8 @@
-package com.fabirt.roka.core.data.network.services
+package com.mahmoudshaaban.peky.core.data.network.services
 
-import com.fabirt.roka.core.data.network.model.RecipeSearchResponse
 import com.mahmoudshaaban.peky.core.constants.K
 import com.mahmoudshaaban.peky.core.data.network.model.NetworkRecipe
+import com.mahmoudshaaban.peky.core.data.network.model.RecipeSearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

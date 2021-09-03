@@ -1,4 +1,4 @@
-package com.fabirt.roka.core.data.database.entities
+package com.mahmoudshaaban.peky.core.data.database.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

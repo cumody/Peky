@@ -1,10 +1,6 @@
-package com.fabirt.roka.core.data.network.services
+package com.mahmoudshaaban.peky.core.data.network.services
 
-import com.fabirt.roka.core.data.network.model.RecipeSearchResponse
-import com.mahmoudshaaban.peky.core.data.network.model.NetworkIngredient
-import com.mahmoudshaaban.peky.core.data.network.model.NetworkInstructions
-import com.mahmoudshaaban.peky.core.data.network.model.NetworkRecipe
-import com.mahmoudshaaban.peky.core.data.network.model.NetworkStep
+import com.mahmoudshaaban.peky.core.data.network.model.*
 import kotlinx.coroutines.delay
 
 class RecipeServiceFakeImpl : RecipeService {

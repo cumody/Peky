@@ -1,4 +1,4 @@
-package com.mahmoudshaaban.peky.core.presentation.viewmodel
+package com.mahmoudshaaban.peky.core.presentation.viewholders
 
 import android.view.LayoutInflater
 import android.view.View

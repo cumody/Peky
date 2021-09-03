@@ -1,8 +1,8 @@
-package com.fabirt.roka.core.data.network.client
+package com.mahmoudshaaban.peky.core.data.network.client
 
-import com.fabirt.roka.core.data.network.services.RecipeService
 import com.mahmoudshaaban.peky.BuildConfig
 import com.mahmoudshaaban.peky.core.constants.K
+import com.mahmoudshaaban.peky.core.data.network.services.RecipeService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

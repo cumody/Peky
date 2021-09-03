@@ -9,11 +9,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.fabirt.roka.features.categories.presentation.adapters.CategoryItemsAdapter
 import com.mahmoudshaaban.peky.R
 import com.mahmoudshaaban.peky.features.categories.domain.model.Category
 import com.mahmoudshaaban.peky.features.categories.presentation.dispatchers.CategoryEventDispatcher
-import com.mahmoudshaaban.peky.features.categories.presentation.view.CategoriesDetailsFragment
 
 class CategoriesAdapter(
     private val eventDispatcher: CategoryEventDispatcher

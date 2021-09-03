@@ -1,4 +1,4 @@
-package com.fabirt.roka.core.data.network.model
+package com.mahmoudshaaban.peky.core.data.network.model
 
 import com.google.gson.annotations.SerializedName
 import com.mahmoudshaaban.peky.core.data.network.model.NetworkRecipe

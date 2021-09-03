@@ -1,8 +1,6 @@
 package com.mahmoudshaaban.peky.core.data.database.entity
 
 import androidx.room.*
-import com.fabirt.roka.core.data.database.entities.DatabaseIngredient
-import com.fabirt.roka.core.data.database.entities.DatabaseInstruction
 import com.mahmoudshaaban.peky.core.domain.model.Ingredient
 import com.mahmoudshaaban.peky.core.domain.model.Instruction
 import com.mahmoudshaaban.peky.core.domain.model.Recipe
@@ -57,6 +55,7 @@ fun DatabaseRecipeInformation.asDomainModel(): Recipe {
     )
 }
 
+fun DatabaseInstruction.asDomainModel() = Instruction(number, step)
+
 fun DatabaseIngredient.asDomainModel() = Ingredient(id, name, original, amount, unit)
 
-fun DatabaseInstruction.asDomainModel() = Instruction(number, step)

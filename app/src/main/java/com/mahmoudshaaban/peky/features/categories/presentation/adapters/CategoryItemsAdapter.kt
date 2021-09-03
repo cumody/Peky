@@ -1,4 +1,4 @@
-package com.fabirt.roka.features.categories.presentation.adapters
+package com.mahmoudshaaban.peky.features.categories.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

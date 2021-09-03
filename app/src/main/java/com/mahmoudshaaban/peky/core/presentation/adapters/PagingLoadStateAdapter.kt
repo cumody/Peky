@@ -3,7 +3,7 @@ package com.mahmoudshaaban.peky.core.presentation.adapters
 import android.view.ViewGroup
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
-import com.mahmoudshaaban.peky.core.presentation.viewmodel.PagingLoadStateViewHolder
+import com.mahmoudshaaban.peky.core.presentation.viewholders.PagingLoadStateViewHolder
 
 class PagingLoadStateAdapter : LoadStateAdapter<PagingLoadStateViewHolder>() {
     override fun onBindViewHolder(holder: PagingLoadStateViewHolder, loadState: LoadState) {

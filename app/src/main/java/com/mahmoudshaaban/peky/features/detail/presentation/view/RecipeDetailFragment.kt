@@ -1,0 +1,215 @@
+package com.mahmoudshaaban.peky.features.detail.presentation.view
+
+import android.content.res.ColorStateList
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.widget.ImageViewCompat
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.transition.MaterialContainerTransform
+import com.mahmoudshaaban.peky.R
+import com.mahmoudshaaban.peky.core.util.bindNetworkImage
+import com.mahmoudshaaban.peky.core.util.configureStatusBar
+import com.mahmoudshaaban.peky.features.detail.adapters.RecipeDetailAdapter
+import com.mahmoudshaaban.peky.features.detail.presentation.viewmodel.RecipeDetailState
+import com.mahmoudshaaban.peky.features.detail.presentation.viewmodel.RecipeDetailViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_recipe_detail.*
+import kotlinx.android.synthetic.main.view_error.*
+import kotlinx.android.synthetic.main.view_spin_indicator.*
+import kotlinx.coroutines.launch
+
+
+@AndroidEntryPoint
+class RecipeDetailFragment : Fragment() {
+
+    private val viewModel: RecipeDetailViewModel by activityViewModels()
+    private val args: RecipeDetailFragmentArgs by navArgs()
+    private lateinit var adapter: RecipeDetailAdapter
+    private lateinit var pulseAnim: Animation
+
+    companion object {
+        private const val TAG = "RecipeDetailFragment"
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        configureTransitions()
+        viewModel.motionProgress = 0F
+        pulseAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.pulse_anim)
+
+        args.id?.let {
+            viewModel.requestRecipeInfo(it.toInt())
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.motionProgress = motionLayout.progress
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        configureStatusBar(false)
+        return inflater.inflate(R.layout.fragment_recipe_detail, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        motionLayout.transitionName = args.transitionName
+
+        motionLayout.progress = viewModel.motionProgress
+        adapter = RecipeDetailAdapter()
+        val layoutManager = LinearLayoutManager(requireContext())
+        rvDetails.adapter = adapter
+        rvDetails.layoutManager = layoutManager
+        applyWindowInsets()
+        setupListeners()
+        buildHeader()
+
+
+    }
+
+
+    private fun setupListeners() {
+        viewModel.state.observe(viewLifecycleOwner, Observer(::buildView))
+
+        btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        ivRecipe.setOnClickListener {
+         //   openPhotoFragment()
+        }
+
+        btnRetry.setOnClickListener {
+            viewModel.retryRecipeRequest(args.id)
+        }
+
+        ivSave.setOnClickListener {
+            it.startAnimation(pulseAnim)
+            viewModel.saveOrDeleteRecipe()
+        }
+
+        ivShare.setOnClickListener {
+       //     shareRecipe()
+        }
+
+        ivWeb.setOnClickListener {
+    //        openWebView()
+        }
+
+
+
+    }
+
+    private fun buildHeader() {
+        if (args.id == null) {
+            viewModel.state.value?.recipe?.let { recipe ->
+                bindNetworkImage(ivRecipe, recipe.imageUrl)
+                tvName.text = recipe.title
+                tvPeople.text = recipe.servings?.toString()
+                tvTime.text = getString(R.string.minutes_label, recipe.readyInMinutes)
+                tvScore.text = recipe.score?.toString()
+
+                viewModel.isFavorite(recipe.id).observe(viewLifecycleOwner, Observer { isFavorite ->
+                    var tint = requireContext().getColor(R.color.colorOnOverlay)
+                    if (isFavorite) {
+                        tint = requireContext().getColor(R.color.colorAccent)
+                    }
+                    ImageViewCompat.setImageTintList(ivSave, ColorStateList.valueOf(tint))
+                })
+            }
+        } else {
+            viewModel.state.observe(viewLifecycleOwner, Observer {state ->
+                state.recipe?.let {recipe ->
+                    bindNetworkImage(ivRecipe, recipe.imageUrl)
+                    tvName.text = recipe.title
+                    tvPeople.text = recipe.servings?.toString()
+                    tvTime.text = getString(R.string.minutes_label, recipe.readyInMinutes)
+                    tvScore.text = recipe.score?.toString()
+                }
+            })
+            viewModel.isFavorite(args.id!!.toInt()).observe(viewLifecycleOwner, Observer { isFavorite ->
+                var tint = requireContext().getColor(R.color.colorOnOverlay)
+                if (isFavorite) {
+                    tint = requireContext().getColor(R.color.colorAccent)
+                }
+                ImageViewCompat.setImageTintList(ivSave, ColorStateList.valueOf(tint))
+            })
+        }
+    }
+
+    private fun buildView(state: RecipeDetailState) {
+        when (state) {
+            is RecipeDetailState.Loading -> {
+                spinView.visibility = View.VISIBLE
+                errorView.visibility = View.GONE
+                rvDetails.visibility = View.GONE
+            }
+            is RecipeDetailState.Error -> {
+                tvErrorSubtitle.text = state.failure.translate(requireContext())
+                spinView.visibility = View.GONE
+                errorView.visibility = View.VISIBLE
+                rvDetails.visibility = View.GONE
+            }
+            is RecipeDetailState.Success -> {
+                rvDetails.scheduleLayoutAnimation()
+                spinView.visibility = View.GONE
+                errorView.visibility = View.GONE
+                rvDetails.visibility = View.VISIBLE
+                lifecycleScope.launch {
+                    adapter.submitRecipeInfo(requireContext(), state.recipe!!)
+                }
+            }
+        }
+    }
+
+
+    private fun applyWindowInsets() {
+        btnBack.setOnApplyWindowInsetsListener { v, insets ->
+            motionLayout.getConstraintSet(R.id.start)?.apply {
+                setMargin(v.id, ConstraintSet.TOP, insets.systemWindowInsetTop)
+            }
+            motionLayout.getConstraintSet(R.id.end)?.apply {
+                setMargin(v.id, ConstraintSet.TOP, insets.systemWindowInsetTop)
+            }
+            insets
+        }
+        ivSave.setOnApplyWindowInsetsListener { v, insets ->
+            motionLayout.getConstraintSet(R.id.start)?.apply {
+                setMargin(v.id, ConstraintSet.TOP, insets.systemWindowInsetTop)
+            }
+            motionLayout.getConstraintSet(R.id.end)?.apply {
+                setMargin(v.id, ConstraintSet.TOP, insets.systemWindowInsetTop)
+            }
+            insets
+        }
+    }
+
+
+    private fun configureTransitions() {
+        val duration = resources.getInteger(R.integer.page_transition_duration)
+        val color = requireContext().getColor(R.color.colorBackground)
+        val transition = MaterialContainerTransform().apply {
+            this.duration = duration.toLong()
+            containerColor = color
+            drawingViewId = R.id.mainNavHostFragment
+        }
+        sharedElementEnterTransition = transition
+        sharedElementReturnTransition = transition
+    }
+}

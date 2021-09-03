@@ -1,7 +1,7 @@
 package com.mahmoudshaaban.peky.core.domain.model
 
-import com.fabirt.roka.core.data.database.entities.DatabaseIngredient
-import com.fabirt.roka.core.data.database.entities.DatabaseInstruction
+import com.mahmoudshaaban.peky.core.data.database.entity.DatabaseIngredient
+import com.mahmoudshaaban.peky.core.data.database.entity.DatabaseInstruction
 import com.mahmoudshaaban.peky.core.data.database.entity.DatabaseRecipe
 import com.mahmoudshaaban.peky.core.data.database.entity.DatabaseRecipeInformation
 

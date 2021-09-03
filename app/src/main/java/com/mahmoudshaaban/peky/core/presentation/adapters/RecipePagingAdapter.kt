@@ -3,7 +3,7 @@ package com.mahmoudshaaban.peky.core.presentation.adapters
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import com.mahmoudshaaban.peky.core.domain.model.Recipe
-import com.mahmoudshaaban.peky.core.presentation.RecipeViewHolder
+import com.mahmoudshaaban.peky.core.presentation.viewholders.RecipeViewHolder
 import com.mahmoudshaaban.peky.core.presentation.dispatchers.RecipeEventDispatcher
 
 class RecipePagingAdapter(
