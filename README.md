@@ -30,14 +30,14 @@ All recipe information is provided by [Spoonacular API.](https://spoonacular.com
 ## Screenshots
 
 <p float="left">
-  <img src="demo/screenshot_1.jpg" width="300" />
-    <img src="demo/screenshot_2.jpg" width="300" />
-   <img src="demo/screenshot_3.jpg" width="300" />
+  <img src="demo/screenshot_1.jpg" width="250" />
+    <img src="demo/screenshot_2.jpg" width="250" />
+   <img src="demo/screenshot_3.jpg" width="250" />
 </p>
 
 
 <p float="center">
-  <img src="demo/screenshot_4.jpg" width="300" />
-    <img src="demo/screenshot_5.jpg" width="300" />
-   <img src="demo/screenshot_6.jpg" width="300" />
+  <img src="demo/screenshot_4.jpg" width="250" />
+    <img src="demo/screenshot_5.jpg" width="250" />
+   <img src="demo/screenshot_6.jpg" width="250" />
 </p>
