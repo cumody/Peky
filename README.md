@@ -28,9 +28,16 @@ All recipe information is provided by [Spoonacular API.](https://spoonacular.com
 - DataStore
 - Paging 3
 ## Screenshots
-![screenshot_1](https://user-images.githubusercontent.com/44779797/131190517-b3ddc760-f376-4a35-bbf4-f612503a3f35.jpg) ![screenshot_2](https://user-images.githubusercontent.com/44779797/131190548-ebd948ee-5127-42d9-ba05-ed12d71c9820.jpg) ![screenshot_3](https://user-images.githubusercontent.com/44779797/131190579-98e79e74-d385-4eed-8418-69fbd44e073b.jpg) ![screenshot_5](https://user-images.githubusercontent.com/44779797/131190598-12c1e44c-875c-4040-aeab-fbc13b557ee0.jpg) ![screenshot_6](https://user-images.githubusercontent.com/44779797/131190611-c62198c5-d211-4197-b9dd-bdb22efd6432.jpg)
+
+<p float="center">
+  <img src="demo/screenshot_1.jpg" width="250" />
+    <img src="demo/screenshot_2.jpg" width="250" />
+   <img src="demo/screenshot_3.jpg" width="250" />
+</p>
 
 
-
-
-
+<p float="center">
+  <img src="demo/screenshot_4.jpg" width="250" />
+    <img src="demo/screenshot_5.jpg" width="250" />
+   <img src="demo/screenshot_6.jpg" width="250" />
+</p>
