@@ -29,7 +29,7 @@ All recipe information is provided by [Spoonacular API.](https://spoonacular.com
 - Paging 3
 ## Screenshots
 
-<p float="left">
+<p float="center">
   <img src="demo/screenshot_1.jpg" width="250" />
     <img src="demo/screenshot_2.jpg" width="250" />
    <img src="demo/screenshot_3.jpg" width="250" />
