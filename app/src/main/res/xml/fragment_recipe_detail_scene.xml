@@ -10,7 +10,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Constraint android:id="@+id/tvName">
+            <CustomAttribute
+                app:attributeName="maxLines"
+                app:customIntegerValue="3" />
 
+        </Constraint>
+
+        <!-- Control Visibility -->
+        <Constraint android:id="@+id/rvDetails">
+            <PropertySet app:visibilityMode="ignore" />
+        </Constraint>
+
+        <Constraint android:id="@+id/spinView">
+            <PropertySet app:visibilityMode="ignore" />
+        </Constraint>
+
+        <Constraint android:id="@+id/errorView">
+            <PropertySet app:visibilityMode="ignore" />
+        </Constraint>
 
     </ConstraintSet>
 

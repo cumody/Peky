@@ -22,7 +22,7 @@ class CategoriesDetailsViewModel @ViewModelInject constructor(
 
     fun requestRecipesForCategory(categoryItem: CategoryItem) {
         recipesFlow = Pager(PagingConfig(K.RECIPES_PER_PAGE)) {
-            val options = mapOf(categoryItem.type to categoryItem.type)
+            val options = mapOf(categoryItem.type to categoryItem.name)
             FilteredRecipesPagingSource(service, options)
         }.flow
             .cachedIn(viewModelScope)
