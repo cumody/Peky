@@ -11,7 +11,7 @@ import com.mahmoudshaaban.peky.core.data.database.entity.DatabaseInstruction
 import com.mahmoudshaaban.peky.core.data.database.entity.DatabaseRecipe
 
 @Database(
-    version = 1,
+    version = 2,
     exportSchema = false,
     entities = [DatabaseRecipe::class, DatabaseIngredient::class, DatabaseInstruction::class]
 )
@@ -23,6 +23,6 @@ abstract class AppDatabase : RoomDatabase() {
             context,
             AppDatabase::class.java,
             K.DATABASE_NAME
-        ).build()
+        ).fallbackToDestructiveMigration().build()
     }
 }

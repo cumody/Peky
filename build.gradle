@@ -15,7 +15,7 @@ buildscript {
         version_retrofit = "2.9.0"
         version_hilt = "2.28-alpha"
         version_hilt_jetpack = "1.0.0-alpha02"
-        version_room = "2.2.4"
+        version_room = "2.3.0"
         version_datastore = "1.0.0-alpha01"
         version_paging = "3.0.0-alpha06"
     }
@@ -24,7 +24,7 @@ buildscript {
 
     dependencies {
         classpath "com.android.tools.build:gradle:4.2.2"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$version_kotlin"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.30"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$version_nav"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$version_hilt"
 

@@ -1,5 +1,6 @@
 package com.mahmoudshaaban.peky.features.detail.presentation.view
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,12 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.widget.ImageViewCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -92,7 +93,7 @@ class RecipeDetailFragment : Fragment() {
         }
 
         ivRecipe.setOnClickListener {
-         //   openPhotoFragment()
+            openPhotoFragment()
         }
 
         btnRetry.setOnClickListener {
@@ -105,14 +106,26 @@ class RecipeDetailFragment : Fragment() {
         }
 
         ivShare.setOnClickListener {
-       //     shareRecipe()
+            shareRecipe()
         }
 
         ivWeb.setOnClickListener {
-    //        openWebView()
+            //        openWebView()
         }
 
 
+    }
+
+    private fun openPhotoFragment() {
+
+        viewModel.state.value?.recipe?.let { recipe ->
+            val action = RecipeDetailFragmentDirections
+                .actionRecipeDetailFragmentToPhotoRecipeFragment(recipe.imageUrl)
+            val extras = FragmentNavigatorExtras(
+                ivRecipe to PhotoRecipeFragment.SHARED_IMAGE
+            )
+            findNavController().navigate(action, extras)
+        }
 
     }
 
@@ -134,8 +147,8 @@ class RecipeDetailFragment : Fragment() {
                 })
             }
         } else {
-            viewModel.state.observe(viewLifecycleOwner, Observer {state ->
-                state.recipe?.let {recipe ->
+            viewModel.state.observe(viewLifecycleOwner, Observer { state ->
+                state.recipe?.let { recipe ->
                     bindNetworkImage(ivRecipe, recipe.imageUrl)
                     tvName.text = recipe.title
                     tvPeople.text = recipe.servings?.toString()
@@ -143,13 +156,34 @@ class RecipeDetailFragment : Fragment() {
                     tvScore.text = recipe.score?.toString()
                 }
             })
-            viewModel.isFavorite(args.id!!.toInt()).observe(viewLifecycleOwner, Observer { isFavorite ->
-                var tint = requireContext().getColor(R.color.colorOnOverlay)
-                if (isFavorite) {
-                    tint = requireContext().getColor(R.color.colorAccent)
+            viewModel.isFavorite(args.id!!.toInt())
+                .observe(viewLifecycleOwner, Observer { isFavorite ->
+                    var tint = requireContext().getColor(R.color.colorOnOverlay)
+                    if (isFavorite) {
+                        tint = requireContext().getColor(R.color.colorAccent)
+                    }
+                    ImageViewCompat.setImageTintList(ivSave, ColorStateList.valueOf(tint))
+                })
+        }
+    }
+
+
+    private fun shareRecipe() {
+        viewModel.state.value?.recipe?.let { recipe ->
+            val url = recipe.sourceUrl
+            if (url != null && url.isNotEmpty()) {
+                val title = recipe.title
+                val id = recipe.id.toString()
+                val content = getString(R.string.share_content, recipe.title, id, url)
+                val sendIntent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TITLE, title)
+                    putExtra(Intent.EXTRA_TEXT, content)
                 }
-                ImageViewCompat.setImageTintList(ivSave, ColorStateList.valueOf(tint))
-            })
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                startActivity(shareIntent)
+            }
         }
     }
 

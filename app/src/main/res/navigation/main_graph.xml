@@ -39,28 +39,40 @@
         android:id="@+id/recipeDetailFragment"
         android:name="com.mahmoudshaaban.peky.features.detail.presentation.view.RecipeDetailFragment"
         android:label="fragment_recipe_detail"
-        tools:layout="@layout/fragment_recipe_detail" >
+        tools:layout="@layout/fragment_recipe_detail">
 
-    <argument
-        android:name="transitionName"
-        app:argType="string"
-        app:nullable="true" />
-    <deepLink
-        android:id="@+id/deepLink"
-        app:uri="peky.recipes/{id}?arg1={transitionName}" />
-    <argument
-        android:name="id"
-        app:argType="string"
-        app:nullable="true" />
+        <argument
+            android:name="transitionName"
+            app:argType="string"
+            app:nullable="true" />
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="peky.recipes/{id}?arg1={transitionName}" />
+        <argument
+            android:name="id"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_recipeDetailFragment_to_photoRecipeFragment"
+            app:destination="@id/photoRecipeFragment" />
 
     </fragment>
 
     <action
         android:id="@+id/action_global_recipeDetailFragment"
         app:destination="@id/recipeDetailFragment" />
+    <fragment
+        android:id="@+id/photoRecipeFragment"
+        android:name="com.mahmoudshaaban.peky.features.detail.presentation.view.PhotoRecipeFragment"
+        android:label="fragment_photo_recipe"
+        tools:layout="@layout/fragment_photo_recipe">
+
+        <argument
+            android:name="imageUrl"
+            app:argType="string" />
 
 
-
+    </fragment>
 
 
 </navigation>
