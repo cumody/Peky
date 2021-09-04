@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_recipeDetailFragment_to_photoRecipeFragment"
             app:destination="@id/photoRecipeFragment" />
+        <action
+            android:id="@+id/action_recipeDetailFragment_to_webDetailFragment"
+            app:destination="@id/webDetailFragment" />
 
     </fragment>
 
@@ -71,6 +74,20 @@
             android:name="imageUrl"
             app:argType="string" />
 
+
+    </fragment>
+    <fragment
+        android:id="@+id/webDetailFragment"
+        android:name="com.mahmoudshaaban.peky.features.detail.presentation.view.WebDetailFragment"
+        android:label="fragment_web_detail"
+        tools:layout="@layout/fragment_web_detail" >
+
+        <argument
+            android:name="url"
+            app:argType="string" />
+        <argument
+            android:name="title"
+            app:argType="string" />
 
     </fragment>
 

@@ -2,6 +2,7 @@ package com.mahmoudshaaban.peky.features.detail.presentation.view
 
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -110,7 +111,7 @@ class RecipeDetailFragment : Fragment() {
         }
 
         ivWeb.setOnClickListener {
-            //        openWebView()
+                  openWebView()
         }
 
 
@@ -183,6 +184,28 @@ class RecipeDetailFragment : Fragment() {
                 }
                 val shareIntent = Intent.createChooser(sendIntent, null)
                 startActivity(shareIntent)
+            }
+        }
+    }
+
+    private fun openWebView(useBrowser: Boolean = false) {
+        viewModel.state.value?.recipe?.let { recipe ->
+            val url = recipe.sourceUrl
+            if (url != null && url.isNotEmpty()) {
+                if (useBrowser) {
+                    val browserIntent = Intent().apply {
+                        action = Intent.ACTION_VIEW
+                        data = Uri.parse(url)
+                    }
+                    startActivity(browserIntent)
+                } else {
+                    val action = RecipeDetailFragmentDirections
+                        .actionRecipeDetailFragmentToWebDetailFragment(
+                            url = url,
+                            title = recipe.title
+                        )
+                    findNavController().navigate(action)
+                }
             }
         }
     }
